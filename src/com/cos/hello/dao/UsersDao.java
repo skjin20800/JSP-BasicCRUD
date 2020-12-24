@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpSession;
+
 import com.cos.hello.config.DBConn;
 import com.cos.hello.model.Users;
 
@@ -123,6 +125,7 @@ public int delete(Users user) {
 	String sql = sb.toString();
 	Connection conn = DBConn.getInstance();
 	try {
+		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, user.getId());
 		int result = pstmt.executeUpdate(); // 변경된 행의 개수를 리턴

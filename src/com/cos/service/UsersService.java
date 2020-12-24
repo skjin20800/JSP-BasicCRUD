@@ -1,6 +1,7 @@
 package com.cos.service;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.cos.hello.dao.UsersDao;
 import com.cos.hello.model.Users;
+import com.cos.util.Script;
 
 public class UsersService {
 	
@@ -58,11 +60,14 @@ public class UsersService {
 			HttpSession session = req.getSession();
 			 session.setAttribute("sessionUser", userEntity);    //key , value
 			//4번 인덱스 페이지로 이동
-			 resp.sendRedirect("index.jsp");
+			 // 1. 한글처리를 위해 resp 객체를 건드린다.
+			 // 2. MIME 타입
+			 // 3. HTTP Header에 Content-Type
+			 Script.href(resp,"index.jsp", "로그인 성공");
 		}else {
-			resp.sendRedirect("auth/login.jsp");
+		Script.back(resp, "로그인 실패");
 		}
-		
+
 	}
 
 	public void 유저정보보기(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -141,12 +146,13 @@ public class UsersService {
 		int result = usersDao.delete(user);
 	
 		if(result ==1 ) {
-			// 3번 INSERT가 정삭적으로 되었다면 index.jsp응답
-			resp.sendRedirect("user?gubun=login");		
+			HttpSession session = req.getSession(); //세션무효화코드
+			session.invalidate(); //세션무효화 코드
+			
+			resp.sendRedirect("index.jsp");		
 		}else {
 			// 이전페이지로 이동
-			resp.sendRedirect("user?gubun=updateOne");
+			resp.sendRedirect("user?gubun=selectOne");
 		}
-		
 	}
 }
