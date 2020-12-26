@@ -31,8 +31,10 @@ public class UsersService {
 				.email(email)
 				.build();
 		
-		UsersDao usersDao = new UsersDao(); //나중에 싱글턴 패턴으로 바꾸기
-		int result = usersDao.insert(user);
+//		UsersDao usersDao = new UsersDao(); //나중에 싱글턴 패턴으로 바꾸기
+//		int result = usersDao.insert(user);
+		
+		int result = UsersDao.getInstance().insert(user);
 
 		if(result ==1 ) {
 			// 3번 INSERT가 정삭적으로 되었다면 index.jsp응답

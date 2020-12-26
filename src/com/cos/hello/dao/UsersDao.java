@@ -11,6 +11,14 @@ import com.cos.hello.config.DBConn;
 import com.cos.hello.model.Users;
 
 public class UsersDao {
+	
+		private static UsersDao instance = new UsersDao();
+
+		public static UsersDao getInstance() {
+			return instance;
+		}	
+
+	
 public int insert(Users user) {
 	
 	System.out.println("==========joinProc Start=========");
