@@ -53,8 +53,7 @@ public class UsersService {
 		
 		// 2번 데이터베이스 값이 있는 select 해서 확인
 		Users user = Users.builder().username(username).password(password).build();
-		UsersDao usersDao = new UsersDao(); //나중에 싱글턴 패턴으로 바꾸기
-		Users userEntity = usersDao.login(user);
+		Users userEntity = UsersDao.getInstance().login(user);
 		
 		if(userEntity != null) {
 			//3번
@@ -77,9 +76,9 @@ public class UsersService {
 		String result;
 		HttpSession session = req.getSession();
 		Users user = (Users) session.getAttribute("sessionUser");
-		UsersDao usersDao = new UsersDao();
+//		UsersDao usersDao = new UsersDao();
 		if(user != null) {
-			Users userEntity = usersDao.selectById(user.getId());
+			Users userEntity = UsersDao.getInstance().selectById(user.getId());
 			req.setAttribute("user", userEntity);
 			RequestDispatcher dis = req.getRequestDispatcher("user/selectOne.jsp");
 			dis.forward(req, resp);
@@ -94,10 +93,10 @@ public class UsersService {
 		String result;
 		HttpSession session = req.getSession();
 		Users user = (Users) session.getAttribute("sessionUser");
-		UsersDao usersDao = new UsersDao();
+		
 		
 		if(user != null) {
-			Users userEntity = usersDao.selectById(user.getId());
+			Users userEntity = UsersDao.getInstance().selectById(user.getId());
 			req.setAttribute("user", userEntity);
 			RequestDispatcher dis = req.getRequestDispatcher("user/updateOne.jsp");
 			dis.forward(req, resp);
@@ -123,9 +122,9 @@ public class UsersService {
 				.email(email)
 				.build();
 		
-		UsersDao usersDao = new UsersDao(); //나중에 싱글턴 패턴으로 바꾸기
 		
-		int result = usersDao.update(user);
+		
+		int result = UsersDao.getInstance().update(user);
 		
 	
 		if(result ==1 ) {
@@ -144,8 +143,7 @@ public class UsersService {
 		Users user = Users.builder()
 				.id(id).build();
 		
-		UsersDao usersDao = new UsersDao(); //나중에 싱글턴 패턴으로 바꾸기
-		int result = usersDao.delete(user);
+		int result = UsersDao.getInstance().delete(user);
 	
 		if(result ==1 ) {
 			HttpSession session = req.getSession(); //세션무효화코드
