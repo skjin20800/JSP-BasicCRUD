@@ -38,6 +38,7 @@ public class UserController extends HttpServlet {
 	}
 
 	protected void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		System.out.println("userController 실행됨");
 		String gubun = req.getParameter("gubun");
 		System.out.println(gubun);

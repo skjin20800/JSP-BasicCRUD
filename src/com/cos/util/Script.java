@@ -10,8 +10,9 @@ public class Script {
 	
 	
 	public static void back(HttpServletResponse resp, String msg) throws IOException {
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html; charset=UTF-8");
+//		resp.setCharacterEncoding("UTF-8");
+
+		
 		
 		PrintWriter out = resp.getWriter();
 		 out.println("<script>");
@@ -23,8 +24,8 @@ public class Script {
 	}
 	
 	public static void href(HttpServletResponse resp, String url, String msg) throws IOException {
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html; charset=UTF-8");
+	
+
 		
 		 PrintWriter out = resp.getWriter();
 		 out.println("<script>");
@@ -38,10 +39,5 @@ public class Script {
 		
 	}
 	
-
-
-//public static void msg() {
-//	
-//}
 	
 }
